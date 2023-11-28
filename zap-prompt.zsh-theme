@@ -3,7 +3,7 @@
 autoload -Uz vcs_info
 autoload -U colors && colors
 
-zstyle ':vcs_info:*' enable git 
+zstyle ':vcs_info:*' enable git
 
 precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
@@ -11,7 +11,7 @@ setopt prompt_subst
 
 
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
-# 
+#
 +vi-git-untracked(){
     if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
         git status --porcelain | grep '??' &> /dev/null ; then
@@ -24,3 +24,8 @@ zstyle ':vcs_info:git:*' formats " %{$fg[blue]%}(%{$fg[red]%}%m%u%c%{$fg[yellow]
 
 PROMPT="%B%{$fg[yellow]%}⚡% %(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )%{$fg[cyan]%}%c%{$reset_color%}"
 PROMPT+="\$vcs_info_msg_0_ "
+
+if [ -n "${ZAP_PROMPT}" ]
+then
+    PROMPT="${ZAP_PROMPT}"
+fi
